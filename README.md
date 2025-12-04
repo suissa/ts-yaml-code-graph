@@ -1,53 +1,47 @@
-# ts-yaml-code-graph
+# YAML Code Graph (TypeScript)
 
-`ts-yaml-code-graph` is a lightweight npm library and CLI that scans JavaScript/TypeScript projects and emits a YAML summary of files, imports, and top-level symbols. Use it to visualize dependencies, feed docs generators, or seed LLM pipelines with structured context.
+YAML Code Graph is now a **pure TypeScript** CLI and library that scans JavaScript/TypeScript projects and emits a compact YAML description of your codebase. It captures top-level symbols, exports, and import relationships so you can quickly visualize or post-process project structure.
 
-## Installation
+## Features
+- 🚀 Zero Rust toolchain — built entirely with Node.js and TypeScript.
+- 🧭 Recursive project scanning with sensible ignores for `node_modules`, build output, and editor folders.
+- 🧩 Symbol extraction for functions, classes, interfaces, types, enums, and variables.
+- 🔗 Import edge capture so you can understand dependencies between files.
+- 📝 Optional JSDoc extraction to preserve API notes in the generated graph.
 
-```bash
-# Install as a project dependency
-npm install ts-yaml-code-graph
-
-# Or install globally to use the CLI everywhere
-npm install -g ts-yaml-code-graph
-```
-
-Requirements: Node.js 18 or newer.
-
-## CLI usage
-
-After installing (or with `npx`), run the `ycg` command:
+## Getting started
+Prerequisites: Node.js 18+ and npm.
 
 ```bash
+# Install dependencies
+npm install
+
+# Build the CLI
+npm run build
+
 # Generate a graph for the current directory
-npx ycg --out graph.yaml
-
-# Scan a specific folder with custom extensions
-ycg --root ./packages/api --extensions .ts,.tsx --out ./artifacts/api-graph.yaml
+node dist/cli.js --root . --out graph.yaml
 ```
 
-### Options
-- `-r, --root <path>`: Directory to scan (default: `.`)
-- `-o, --out <file>`: Output YAML file (default: `graph.yaml`)
-- `-e, --extensions <list>`: Comma-separated extensions to include (default: `.ts,.tsx,.js,.jsx,.mjs,.cjs`)
-- `-h, --help`: Show the CLI help text
+### CLI options
+- `-r, --root <path>`: directory to scan (default `.`)
+- `-o, --out <file>`: output YAML file (default `graph.yaml`)
+- `-e, --extensions <list>`: comma-separated extensions to include (default `.ts,.tsx,.js,.jsx,.mjs,.cjs`)
+- `-h, --help`: print usage help
 
-## Library usage
-
-Use the library to build graphs programmatically:
+### Library usage
+If you want to embed the graph generator in another tool, import it directly:
 
 ```ts
 import { buildGraph, serializeGraph } from "ts-yaml-code-graph";
 
-const graph = buildGraph("./src", { extensions: [".ts", ".tsx"] });
+const graph = buildGraph("./src");
 const yaml = serializeGraph(graph);
-
 console.log(yaml);
 ```
 
-## Output schema
-
-The YAML output is a plain object with metadata and per-file details:
+## Output format
+The generated YAML is a plain object with metadata and one entry per file:
 
 ```yaml
 root: /absolute/path/to/project
@@ -62,21 +56,12 @@ files:
         kind: function
         exported: true
         signature: buildGraph(root: string): CodeGraph
-        doc: Optional JSDoc block
         location:
           line: 10
           column: 1
 ```
 
-## Development
-
-```bash
-npm install
-npm run build
-```
-
-The TypeScript build emits CommonJS modules and type declarations into `dist/`. The published package ships the compiled output along with typings, the CLI entrypoint, and the README.
+Use the `files[*].imports` and `files[*].symbols` arrays to render diagrams, feed LLM pipelines, or drive documentation generators.
 
 ## License
-
 Licensed under the Apache 2.0 License. See [LICENSE](LICENSE).
