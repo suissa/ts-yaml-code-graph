@@ -1,0 +1,26 @@
+{
+  "name": "ts-yaml-code-graph",
+  "version": "1.0.0",
+  "description": "Pure TypeScript CLI for generating YAML code graphs from JavaScript and TypeScript projects.",
+  "main": "dist/index.js",
+  "type": "commonjs",
+  "bin": {
+    "ycg": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/cli.js",
+    "graph": "npm run build && node dist/cli.js"
+  },
+  "files": ["dist"],
+  "keywords": ["code-graph", "yaml", "typescript", "javascript"],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
+}
