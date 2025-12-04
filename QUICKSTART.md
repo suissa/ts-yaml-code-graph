@@ -22,14 +22,6 @@ The command scans JavaScript and TypeScript files under the current directory (s
 
 Open the YAML to see each file, its imports, and the top-level symbols (functions, classes, interfaces, types, enums, variables). Use this file to visualize dependencies or feed automation.
 
-To convert the YAML into a shareable visualization, run:
-
-```bash
-ycg visualize --input graph.yaml --out graph.html --theme light
-```
-
-The generated HTML contains an interactive force-directed graph with a legend, tooltips, and a built-in theme toggle.
-
 ## 4. Use as a library
 
 ```ts
