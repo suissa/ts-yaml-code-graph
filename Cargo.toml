@@ -1,3 +1,0 @@
-[workspace]
-members = ["crates/ycg_core", "crates/ycg_cli"]
-resolver = "2"
